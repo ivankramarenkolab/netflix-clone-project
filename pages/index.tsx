@@ -1,18 +1,15 @@
-import Image from 'next/image'
-import {Inter} from 'next/font/google'
 import Head from "next/head";
 import {NextPage} from "next";
-
-const inter = Inter({subsets: ['latin']})
+import Header from "@/components/Header";
 
 const Home: NextPage = () => {
     return (
-        <div className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}>
+        <div className="">
             <Head>
                 <title>Home Netflix</title>
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
-            {/* Header */}
+            <Header/>
             <main>
                 {/* Banner */}
                 <section>
