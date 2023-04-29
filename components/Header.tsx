@@ -1,9 +1,28 @@
 import {BellIcon, MagnifyingGlassIcon as SearchIcon} from "@heroicons/react/20/solid"
 import Link from "next/link";
+import {useEffect, useState} from "react";
 
 function Header(props) {
+    const [isScrolled, setScrolled] = useState(false)
+
+    useEffect(() => {
+        const handlerScroll = () => {
+            if (window.scrollY > 0) {
+                setScrolled(true)
+            } else {
+                setScrolled(false)
+            }
+        }
+
+        window.addEventListener('scroll', handlerScroll)
+
+        return () => {
+            window.removeEventListener("scroll", handlerScroll)
+        }
+    }, [])
+
     return (
-        <header>
+        <header className={`${isScrolled && 'bg-[#141414]'}`}>
             <div className="flex items-center space-x-2 md:space-x-10">
                 <img
                     src="https://rb.gy/ulxxee"
