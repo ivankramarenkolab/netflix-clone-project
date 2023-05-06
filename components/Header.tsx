@@ -2,7 +2,7 @@ import {BellIcon, MagnifyingGlassIcon as SearchIcon} from "@heroicons/react/20/s
 import Link from "next/link";
 import {useEffect, useState} from "react";
 
-function Header(props) {
+function Header() {
     const [isScrolled, setScrolled] = useState(false)
 
     useEffect(() => {
