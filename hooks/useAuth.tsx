@@ -9,6 +9,26 @@ import {
 import { useRouter } from 'next/router'
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import { auth } from '../firebase'
+import {Simulate} from "react-dom/test-utils";
+import error = Simulate.error;
+
+interface IAuth {
+    user: User | null
+    signUp: (email: string, password: string) => Promise<void>
+    signIn: (email: string, password: string) => Promise<void>
+    logout: () => Promise<void>
+    error: string | null
+    loading: boolean
+}
+
+const AuthContext = createContext<IAuth> ({
+    user: null,
+    signUp: async () => {},
+    signIn: async () => {},
+    logout: async () => {},
+    error: null,
+    loading: false
+})
 
 interface AutoProviderProps {
     children: React.ReactNode
@@ -18,8 +38,29 @@ export const AuthProvider = ({children}: AutoProviderProps) => {
     const [loading, setLoading] = useState(false)
     const [user, setUser] = useState<User | null>(null)
     const router = useRouter()
+    const [initialLoading, setInitialLoading] = useState(true)
 
-    const singUp = async (email: string, password: string) => {
+    // Persisting the user
+    useEffect(
+        () =>
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    // Logged in...
+                    setUser(user)
+                    setLoading(false)
+                } else {
+                    // Not logged in...
+                    setUser(null)
+                    setLoading(true)
+                    router.push('/login')
+                }
+
+                setInitialLoading(false)
+            }),
+        [auth]
+    )
+
+    const signUp = async (email: string, password: string) => {
         setLoading(true)
 
         await createUserWithEmailAndPassword(auth, email, password)
@@ -32,7 +73,7 @@ export const AuthProvider = ({children}: AutoProviderProps) => {
             .finally(() => setLoading(false))
     }
 
-    const singIn = async (email: string, password: string) => {
+    const signIn = async (email: string, password: string) => {
         setLoading(true)
 
         await signInWithEmailAndPassword(auth, email, password)
@@ -56,7 +97,14 @@ export const AuthProvider = ({children}: AutoProviderProps) => {
             .finally(() => setLoading(false))
     }
 
-    return <AuthContext.Provider>
-        {children}
-        <AuthContext.Provider>
+    const memoedValue = useMemo(() => ({
+    user, signUp, signIn, loading, logout, error}
+),[user,loading, error])
+
+    return (<AuthContext.Provider value={memoedValue}>
+        {!initialLoading && children}
+        </AuthContext.Provider>)
 }
+
+export default function useAuth() {
+        return useContext(AuthContext)}
