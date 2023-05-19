@@ -10,7 +10,6 @@ import { useRouter } from 'next/router'
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import { auth } from '../firebase'
 import {Simulate} from "react-dom/test-utils";
-import error = Simulate.error;
 
 interface IAuth {
     user: User | null
@@ -98,12 +97,13 @@ export const AuthProvider = ({children}: AutoProviderProps) => {
     }
 
     const memoedValue = useMemo(() => ({
-    user, signUp, signIn, loading, logout, error}
-),[user,loading, error])
+    user, signUp, signIn, loading, logout, error: null}
+),[user,loading,])
 
     return (<AuthContext.Provider value={memoedValue}>
         {!initialLoading && children}
-        </AuthContext.Provider>)
+        </AuthContext.Provider>
+    )
 }
 
 export default function useAuth() {
