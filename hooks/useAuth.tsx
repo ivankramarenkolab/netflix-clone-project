@@ -9,7 +9,6 @@ import {
 import { useRouter } from 'next/router'
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import { auth } from '../firebase'
-import {Simulate} from "react-dom/test-utils";
 
 interface IAuth {
     user: User | null
