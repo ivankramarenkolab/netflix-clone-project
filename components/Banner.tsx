@@ -20,8 +20,6 @@ const Banner = ({netflixOriginals}: Props) => {
         setMovie(netflixOriginals[Math.floor(Math.random() * netflixOriginals.length)])
     }, [netflixOriginals])
 
-    console.log(movie)
-
     return (
         <div className='flex flex-col space-y-2 py-16 md:space-y-4 lg:h-[65vh] lg:justify-end lg:pb-12'>
             <div className='absolute top-0 left-0 -z-10 h-[95vh] w-screen'>
@@ -37,7 +35,8 @@ const Banner = ({netflixOriginals}: Props) => {
                         onClick={() => {
                             setCurrentMovie(movie)
                             setShowModal(true)
-                }}>
+                        }}
+                >
                     More Info
                     <InformationCircleIcon className='h-5 w-5 md:h-8 md:w-8'/>
                 </button>
