@@ -5,6 +5,8 @@ import {modalState, movieState} from "@/atoms/modalAtom";
 import {useEffect, useState} from "react";
 import {Element, Genre} from "@/typings";
 import ReactPlayer from "react-player/lazy";
+import {FaPlay} from "react-icons/fa";
+import {HandThumbUpIcon, PlusIcon} from "@heroicons/react/20/solid";
 
 const Modal = () => {
     const [showModal, setShowModal] = useRecoilState(modalState)
@@ -45,7 +47,10 @@ const Modal = () => {
     console.log(trailer)
 
     return (
-        <MuiModal open={showModal} onClose={handlerClose}>
+        <MuiModal open={showModal} onClose={handlerClose}
+            className='fixed !top-7 left-0 right-0 z-50 mx-auto w-full max-w-5xl overflow-hidden overflow-y-scroll
+            rounded-md scrollbar-hide'
+        >
         <>
             <button onClick={handlerClose}
                     className='modalButton absolute right-5 top-5 !z-40 h-9 w-9 border-none bg-[#181818]
@@ -62,10 +67,20 @@ const Modal = () => {
                     playing
                     muted={muted}
                 />
-            </div>
-            <div>
-                <div>
-                    <button>Play</button>
+                <div className='absolute bottom-10 flex w-full items-center justify-between px-10'>
+                    <div className='flex space-x-2'>
+                        <button className='flex items-center gap-x-2 rounded bg-white px-8 text-xl font-bold
+                        text-black transition hover:bg-[#e6e6e6]'>
+                            <FaPlay className='h-7 w-7 text-black'/>
+                            Play
+                        </button>
+                        <button className='modalButton'>
+                            <PlusIcon className='h-7 w-7'/>
+                        </button>
+                        <button className='modalButton'>
+                            <HandThumbUpIcon className='h-7 w-7'/>
+                        </button>
+                    </div>
                 </div>
             </div>
         </>
