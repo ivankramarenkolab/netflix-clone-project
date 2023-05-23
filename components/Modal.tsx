@@ -6,7 +6,7 @@ import {useEffect, useState} from "react";
 import {Element, Genre} from "@/typings";
 import ReactPlayer from "react-player/lazy";
 import {FaPlay} from "react-icons/fa";
-import {HandThumbUpIcon, PlusIcon} from "@heroicons/react/20/solid";
+import {HandThumbUpIcon, PlusIcon, SpeakerWaveIcon, SpeakerXMarkIcon} from "@heroicons/react/20/solid";
 
 const Modal = () => {
     const [showModal, setShowModal] = useRecoilState(modalState)
@@ -67,7 +67,7 @@ const Modal = () => {
                     playing
                     muted={muted}
                 />
-                <div className='absolute bottom-10 flex w-full items-center justify-between px-10'>
+                <div className='absolute bottom-14 flex w-full items-center justify-between px-10'>
                     <div className='flex space-x-2'>
                         <button className='flex items-center gap-x-2 rounded bg-white px-8 text-xl font-bold
                         text-black transition hover:bg-[#e6e6e6]'>
@@ -81,6 +81,9 @@ const Modal = () => {
                             <HandThumbUpIcon className='h-7 w-7'/>
                         </button>
                     </div>
+                    <button className='modalButton' onClick={() => setMuted(!muted)}>
+                        {muted ? <SpeakerXMarkIcon className='h-6 w-6'/> : <SpeakerWaveIcon className='h-6 w-6'/>}
+                    </button>
                 </div>
             </div>
         </>
