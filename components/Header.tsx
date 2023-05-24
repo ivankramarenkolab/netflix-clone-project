@@ -1,5 +1,4 @@
 import {BellIcon, MagnifyingGlassIcon as SearchIcon} from "@heroicons/react/20/solid"
-import Link from "next/link";
 import {useEffect, useState} from "react";
 import useAuth from "@/hooks/useAuth";
 
