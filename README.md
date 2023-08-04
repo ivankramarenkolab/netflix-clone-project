@@ -43,3 +43,7 @@ If you would like to contribute to this project, please create a new branch on y
 ## Live Demo
 
 You can access the live demo of this project [here](https://netflix-clone-project-alpha.vercel.app/).
+
+Use it or register yourself: 
+Email:test@test.com 
+Password:testte
